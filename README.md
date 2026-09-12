@@ -2,6 +2,10 @@
 
 > *Because objects deserve love too.*
 
+### 👉 [**Try it live**](https://object-soulmate-elyra.netlify.app)
+
+*(First load can take up to a minute — the free backend wakes from sleep.)*
+
 ## Basic Details
 
 ### Team Name: Elyra
@@ -139,9 +143,13 @@ flowchart TD
 
 # Additional Demos
 
-- **Live site:** [Add your Netlify URL here]
-- **API:** [Add your backend URL here]
+- **Live site:** https://object-soulmate-elyra.netlify.app
+- **API:** https://object-soulmate-api.onrender.com
 - **Repository:** https://github.com/sahala0408/useless
+
+> ⏳ The backend runs on a free tier and sleeps after 15 minutes of inactivity.
+> The first request may take up to a minute to wake it — after that it is fast.
+> The dating pool seeds itself, so it is never empty.
 
 ## Features
 
