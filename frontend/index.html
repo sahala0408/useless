@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Object Soulmate — Because objects deserve love too</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=15">
+</head>
+<body>
+
+<!-- shown only when the backend can't be reached -->
+<div class="offline-bar" id="offline-bar" hidden>
+  <span class="ob-dot"></span>
+  <span class="ob-text" id="ob-text">Backend not reachable at <code id="ob-url"></code> — start it, then hit retry.</span>
+  <button class="ob-retry" id="ob-retry">Retry</button>
+</div>
+
+<!-- ══════════ ANIMATED BACKGROUND ══════════ -->
+<div class="bg-layer" aria-hidden="true">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+  <div class="grid-floor"></div>
+  <div class="symbol-field" id="symbol-field"></div>
+</div>
+
+<!-- ══════════ NAV ══════════ -->
+<header class="nav">
+  <button class="brand" data-go="home">
+    <span class="brand-mark">💘</span>
+    <span class="brand-text">Object <em>Soulmate</em></span>
+  </button>
+
+  <nav class="nav-links">
+    <button class="nav-link is-active" data-go="home">Home</button>
+    <button class="nav-link" data-go="upload">Find Soulmate</button>
+    <button class="nav-link" data-go="gallery">Gallery</button>
+    <button class="nav-link" data-go="about">About</button>
+  </nav>
+
+  <button class="sound-toggle" id="sound-toggle" aria-pressed="true" title="Toggle sound">
+    <span id="sound-icon">🔊</span><span class="sound-label" id="sound-label">Sound ON</span>
+  </button>
+</header>
+
+<main>
+
+<!-- ══════════ 1. HOME ══════════ -->
+<section class="screen is-active" id="screen-home">
+  <div class="hero">
+
+    <div class="floaters" aria-hidden="true">
+      <div class="floater f1"><span class="fo-emoji">🥄</span><span class="fo-tag">emotionally unavailable</span></div>
+      <div class="floater f2"><span class="fo-emoji">🪑</span><span class="fo-tag">looking for stability</span></div>
+      <div class="floater f3"><span class="fo-emoji">🍌</span><span class="fo-tag">probably toxic</span></div>
+      <div class="floater f4"><span class="fo-emoji">👟</span><span class="fo-tag">needs attention</span></div>
+      <div class="floater f5"><span class="fo-emoji">☕</span><span class="fo-tag">hot but bitter</span></div>
+      <div class="floater f6"><span class="fo-emoji">⌨️</span><span class="fo-tag">types too loudly</span></div>
+    </div>
+
+    <p class="eyebrow"><span class="live-dot"></span> AI Object Dating Lab — now accepting cutlery</p>
+
+    <h1 class="hero-title">
+      <span class="ht-line">OBJECT</span>
+      <span class="ht-line ht-glow">SOULMATE</span>
+    </h1>
+
+    <p class="hero-sub">Because objects deserve love too.</p>
+    <p class="hero-support">Upload anything. We'll find its emotionally questionable soulmate.</p>
+
+    <button class="cta" data-go="upload">
+      <span class="cta-inner">💘 FIND MY SOULMATE</span>
+    </button>
+
+    <p class="cta-footnote">Powered by questionable AI decisions</p>
+
+    <div class="stat-strip">
+      <div class="stat"><strong id="stat-objects">—</strong><span>lonely objects</span></div>
+      <div class="stat-div"></div>
+      <div class="stat"><strong>0.3%</strong><span>usefulness</span></div>
+      <div class="stat-div"></div>
+      <div class="stat"><strong>∞</strong><span>bad decisions</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ 2. UPLOAD ══════════ -->
+<section class="screen" id="screen-upload">
+  <div class="panel">
+    <p class="eyebrow">step one</p>
+    <h2 class="screen-title">WHO NEEDS LOVE?</h2>
+    <p class="screen-sub">Introduce us to your object.</p>
+
+    <label class="field-label" for="object-name">What is it?</label>
+    <input type="text" id="object-name" class="text-input"
+           placeholder="e.g. spoon, left sock, stapler" autocomplete="off" maxlength="40">
+
+    <div class="dropzone" id="dropzone">
+      <div class="dz-empty" id="dz-empty">
+        <div class="dz-icon">📦</div>
+        <p class="dz-main">Drag a photo here</p>
+        <p class="dz-sub">or pick one below</p>
+      </div>
+
+      <div class="object-card" id="object-card" hidden>
+        <div class="oc-glow"></div>
+        <div class="oc-frame">
+          <img id="preview-img" alt="Your object">
+          <div class="scan-line" id="scan-line"></div>
+        </div>
+        <button type="button" class="oc-clear" id="clear-photo" title="Remove photo">✕</button>
+      </div>
+    </div>
+
+    <div class="photo-row">
+      <label class="ghost-btn" for="gallery-input">
+        📷 <span>Upload Object</span>
+        <input type="file" id="gallery-input" accept="image/*" hidden>
+      </label>
+      <label class="ghost-btn" for="camera-input">
+        📱 <span>Use Camera</span>
+        <input type="file" id="camera-input" accept="image/*" capture="environment" hidden>
+      </label>
+    </div>
+
+    <button class="cta" id="analyze-btn" disabled>
+      <span class="cta-inner">ANALYZE THIS OBJECT</span>
+    </button>
+
+    <p class="error-msg" id="error-msg" hidden></p>
+  </div>
+</section>
+
+<!-- ══════════ 3. ANALYSIS ══════════ -->
+<section class="screen" id="screen-analyze">
+  <div class="analyze-stage">
+    <div class="scan-ring r1"></div>
+    <div class="scan-ring r2"></div>
+    <div class="scan-ring r3"></div>
+
+    <div class="object-card scanning">
+      <div class="oc-glow"></div>
+      <div class="oc-frame">
+        <img id="analyze-img" alt="Object being analyzed">
+        <div class="scan-line active"></div>
+        <div class="scan-grid"></div>
+      </div>
+    </div>
+
+    <p class="analyze-msg" id="analyze-msg">🔍 Scanning object…</p>
+
+    <div class="progress-track"><div class="progress-fill" id="analyze-progress"></div></div>
+    <p class="analyze-pct" id="analyze-pct">0%</p>
+  </div>
+</section>
+
+<!-- ══════════ 4. PERSONALITY / DATING PROFILE ══════════ -->
+<section class="screen" id="screen-profile">
+  <div class="panel profile-panel">
+    <p class="eyebrow">analysis complete</p>
+    <h2 class="screen-title">MEET YOUR OBJECT</h2>
+
+    <div class="profile-top">
+      <div class="object-card">
+        <div class="oc-glow"></div>
+        <div class="oc-frame">
+          <img id="profile-img" alt="Your object as a character">
+        </div>
+      </div>
+
+      <div class="profile-id">
+        <h3 class="profile-name" id="profile-name">SPOON</h3>
+        <p class="profile-quote" id="profile-quote"></p>
+        <div class="flag-row">
+          <span class="chip chip-neutral" id="chip-status">Single 🥲</span>
+          <span class="chip chip-red" id="chip-red">🚩 —</span>
+          <span class="chip chip-green" id="chip-green">💚 —</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="profile-cols">
+      <div class="trait-block">
+        <p class="block-label">Personality</p>
+        <div id="trait-bars"></div>
+      </div>
+
+      <div class="dossier">
+        <p class="block-label">Dating profile</p>
+        <dl id="dossier-list"></dl>
+      </div>
+    </div>
+
+    <button class="cta" id="find-soulmate-btn">
+      <span class="cta-inner">💘 FIND MY SOULMATE</span>
+    </button>
+  </div>
+</section>
+
+<!-- ══════════ 5. MATCHMAKING ══════════ -->
+<section class="screen" id="screen-match">
+  <div class="match-stage">
+    <div class="big-heart">❤️</div>
+    <h2 class="matchmaking-title" id="matchmaking-title">SEARCHING FOR LOVE…</h2>
+    <p class="matchmaking-msg" id="matchmaking-msg">Searching the archive…</p>
+
+    <div class="reel-window" id="reel-window">
+      <div class="reel-track" id="reel-track"></div>
+      <div class="reel-fade left"></div>
+      <div class="reel-fade right"></div>
+      <div class="reel-marker"></div>
+    </div>
+
+    <!-- FEATURE 1: other candidates, rejected one at a time -->
+    <div class="candidates" id="candidates" hidden>
+      <p class="cand-head">OTHER CANDIDATES</p>
+      <div class="cand-stage" id="cand-stage"></div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURE 2: dramatic destiny beats -->
+<div class="destiny-veil" id="destiny-veil" hidden>
+  <p class="destiny-line" id="destiny-line"></p>
+</div>
+
+<!-- ══════════ 6. SOULMATE REVEAL ══════════ -->
+<section class="screen" id="screen-reveal">
+  <div class="confetti-field" id="confetti-field" aria-hidden="true"></div>
+
+  <div class="reveal-stage" id="reveal-stage">
+    <p class="reveal-kicker" id="reveal-kicker">DESTINY IS DECIDING…</p>
+
+    <div class="pair" id="pair">
+      <div class="pair-side left">
+        <div class="object-card">
+          <div class="oc-glow"></div>
+          <div class="oc-frame">
+            <img id="reveal-user-img" alt="Your object">
+          </div>
+        </div>
+        <span class="pair-name" id="reveal-user-name"></span>
+      </div>
+
+      <div class="pair-middle">
+        <div class="heart-core" id="heart-core">❤️</div>
+        <div class="ring-wrap">
+          <svg viewBox="0 0 120 120" class="ring-svg">
+            <circle cx="60" cy="60" r="52" class="ring-track"></circle>
+            <circle cx="60" cy="60" r="52" class="ring-fill" id="ring-fill"></circle>
+          </svg>
+          <div class="ring-percent" id="ring-percent">0%</div>
+        </div>
+        <span class="ring-caption">COMPATIBLE</span>
+      </div>
+
+      <div class="pair-side right">
+        <div class="object-card">
+          <div class="oc-glow"></div>
+          <div class="oc-frame">
+            <img id="reveal-soulmate-img" alt="Soulmate object">
+          </div>
+        </div>
+        <span class="pair-name" id="reveal-soulmate-name"></span>
+      </div>
+    </div>
+
+    <div class="verdict" id="verdict">
+      <span class="verdict-label" id="verdict-label">💍 SOULMATES</span>
+
+      <div class="analysis" id="analysis">
+        <p class="an-head">WHY THEY MATCH 💘</p>
+        <p class="verdict-text" id="verdict-text"></p>
+
+        <p class="an-head">THEIR DYNAMIC</p>
+        <ul class="an-dynamic">
+          <li><span class="an-ico">🧠</span><span id="an-persona-a"></span></li>
+          <li><span class="an-ico">❤️</span><span id="an-persona-b"></span></li>
+          <li><span class="an-ico">⚡</span><span id="an-dynamic"></span></li>
+        </ul>
+
+        <p class="an-head">AI VERDICT</p>
+        <p class="an-verdict" id="an-verdict"></p>
+      </div>
+    </div>
+
+    <!-- FEATURE 3: their ridiculous future -->
+    <div class="future-card" id="future-card" hidden>
+      <p class="future-title">🔮 THEIR FUTURE</p>
+      <ol class="timeline" id="timeline"></ol>
+
+      <div class="survival">
+        <div class="sv-head">
+          <span class="block-label">Relationship survival chance</span>
+          <span class="sv-value" id="sv-value">0%</span>
+        </div>
+        <div class="progress-track"><div class="progress-fill useless" id="sv-fill"></div></div>
+        <p class="sv-quip" id="sv-quip"></p>
+      </div>
+    </div>
+
+    <div class="reveal-actions">
+      <button class="cta" id="again-btn"><span class="cta-inner">Match another object</span></button>
+      <button class="ghost-btn wide" data-go="gallery">See the dating pool</button>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ 7. THE DATING POOL ══════════ -->
+<section class="screen" id="screen-gallery">
+  <div class="panel wide-panel">
+    <p class="eyebrow">currently single</p>
+    <h2 class="screen-title">💘 THE DATING POOL</h2>
+    <p class="screen-sub">Thousands of objects. Zero standards.</p>
+
+    <div class="pool-grid" id="gallery-grid"></div>
+    <p class="empty-state" id="gallery-empty" hidden>The dating pool is depressingly empty.</p>
+  </div>
+</section>
+
+<!-- ══════════ DELETE CONFIRMATION ══════════ -->
+<div class="confirm-veil" id="confirm-modal" hidden>
+  <div class="confirm-box" role="alertdialog" aria-modal="true" aria-labelledby="cf-title">
+    <div class="cf-icon">🗑️</div>
+    <h3 class="cf-title" id="cf-title">DELETE THIS OBJECT?</h3>
+    <p class="cf-lead" id="cf-lead"></p>
+    <p class="cf-flavour" id="cf-flavour"></p>
+    <div class="cf-actions">
+      <button class="cf-btn" type="button" id="cf-cancel">Cancel</button>
+      <button class="cf-btn danger" type="button" id="cf-confirm">🗑️ Remove Forever</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ TOASTS ══════════ -->
+<div class="toast-host" id="toast-host" aria-live="polite"></div>
+
+<!-- ══════════ DATING PROFILE MODAL ══════════ -->
+<div class="modal-veil" id="profile-modal" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="pm-name">
+    <button class="modal-close" id="pm-close" aria-label="Close profile">✕</button>
+
+    <div class="pm-hero">
+      <div class="pm-photo" id="pm-photo"></div>
+      <div class="pm-id">
+        <h3 class="pm-name" id="pm-name"></h3>
+        <p class="pm-title" id="pm-title"></p>
+        <p class="pm-tagline" id="pm-tagline"></p>
+        <span class="chip chip-neutral" id="pm-status"></span>
+      </div>
+    </div>
+
+    <div class="pm-body">
+      <div class="pm-col">
+        <p class="block-label">Personality</p>
+        <div id="pm-traits"></div>
+      </div>
+
+      <div class="pm-col">
+        <p class="block-label">Profile</p>
+        <dl class="dossier" id="pm-dossier"></dl>
+      </div>
+    </div>
+
+    <div class="pm-flags">
+      <div class="flag-box green">
+        <p class="fb-head">💚 GREEN FLAGS</p>
+        <ul id="pm-green"></ul>
+      </div>
+      <div class="flag-box red">
+        <p class="fb-head">🚩 RED FLAGS</p>
+        <ul id="pm-red"></ul>
+      </div>
+    </div>
+
+    <div class="pm-secret">
+      <p class="block-label">💭 Secret</p>
+      <p class="secret-text" id="pm-secret"></p>
+    </div>
+
+    <div class="pm-matches">
+      <p class="block-label">❤️ Potential soulmates</p>
+      <div id="pm-match-list"></div>
+      <p class="empty-state small" id="pm-match-empty" hidden>
+        Nobody else is here yet. This object is dating itself by default.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ 8. ABOUT ══════════ -->
+<section class="screen" id="screen-about">
+  <div class="panel">
+    <p class="eyebrow">the honest section</p>
+    <h2 class="screen-title">WHY DOES THIS EXIST?</h2>
+    <div class="about-body">
+      <p>Nobody asked for it.</p>
+      <p>We built it anyway.</p>
+      <p>Object&nbsp;Soulmate uses AI to determine romantic compatibility between completely unrelated physical objects.</p>
+      <p>It solves absolutely no real-world problem.</p>
+      <p class="about-punch">And that's the point.</p>
+    </div>
+
+    <div class="useful-meter">
+      <div class="um-head">
+        <span class="block-label">Usefulness score</span>
+        <span class="um-value" id="um-value">0.3%</span>
+      </div>
+      <div class="progress-track"><div class="progress-fill useless" id="um-fill"></div></div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<script src="script.js?v=15"></script>
+</body>
+</html>

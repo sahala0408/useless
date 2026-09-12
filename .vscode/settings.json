@@ -1,0 +1,18 @@
+{
+  // Live Server watches the whole project folder. The backend writes a new
+  // image into backend/uploads/ and a row into objects.db on every upload,
+  // which made Live Server reload the page in the middle of the flow and
+  // wipe the match result. Ignoring the backend stops that.
+  //
+  // Note: deliberately NOT setting liveServer.settings.root — changing the
+  // root breaks "right-click index.html -> Open with Live Server".
+  "liveServer.settings.ignoreFiles": [
+    "backend/**",
+    "**/*.db",
+    "**/*.db-journal",
+    "**/uploads/**",
+    "**/venv/**",
+    "**/__pycache__/**",
+    "**/*.py"
+  ]
+}
