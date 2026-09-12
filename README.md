@@ -4,12 +4,11 @@
 
 ## Basic Details
 
-### Team Name: [Your Team Name]
+### Team Name: Elyra
 
 ### Team Members
-- Team Lead: [Your Name] - [Your College]
-- Member 2: [Name] - [College]
-- Member 3: [Name] - [College]
+- Team Lead: Rahamath Sahala K P - Calicut University Institute of Engineering and Technology
+- Member 2: Sreeminnika K N - Calicut University Institute of Engineering and Technology
 
 ### Project Description
 
@@ -201,9 +200,8 @@ useless/
 
 ## Team Contributions
 
-- [Name 1]: [Specific contributions]
-- [Name 2]: [Specific contributions]
-- [Name 3]: [Specific contributions]
+- Rahamath Sahala K P: [Specific contributions]
+- Sreeminnika K N: [Specific contributions]
 
 ## Disclaimer
 
