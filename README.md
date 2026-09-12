@@ -1,11 +1,5 @@
 # Object Soulmate 💘
 
-> *Because objects deserve love too.*
-
-### 👉 [**Try it live**](https://object-soulmate-elyra.netlify.app)
-
-*(First load can take up to a minute — the free backend wakes from sleep.)*
-
 ## Basic Details
 
 ### Team Name: Elyra
@@ -16,31 +10,27 @@
 
 ### Project Description
 
-Object Soulmate is an AI-style dating application for **physical objects**. You photograph a spoon, type its name, and the system gives it a personality, drops it into a dating pool, rejects several unsuitable candidates on its behalf, and matches it with a completely unrelated object — then explains the relationship in far more detail than anyone requested.
-
-It also predicts how the relationship ends. It is never optimistic.
+Object Soulmate is an AI-style dating application for physical objects. You photograph a spoon, type its name, and the system gives it a personality, drops it into a dating pool, rejects several unsuitable candidates on its behalf, and matches it with a completely unrelated object. It then explains the relationship in far more detail than anyone requested, and predicts how it ends.
 
 ### The Problem (that doesn't exist)
 
-Every single day, billions of household objects sit in drawers, on desks and under sofas, living quietly parallel lives, **completely unaware of one another**.
+Billions of household objects sit in drawers, on desks and under sofas, living quietly parallel lives, completely unaware of one another. Your spoon has never met your chair. Your keyboard has no idea your broom exists. They share a home, they share a life, and they have never been formally introduced.
 
-Your spoon has never met your chair. Your keyboard has no idea your broom exists. They share a home. They share a life. They have never been formally introduced.
+Nobody has ever asked the truly important question: who would your stapler date?
 
-Nobody has ever asked the truly important question: **who would your stapler date?**
-
-Worse — objects have *no way whatsoever* of expressing their emotional needs. A banana changes personality three times a week and not one person checks in on it. A chair has silently supported everyone in the house for eleven years and has never once been thanked. This is a crisis nobody is talking about, mainly because it is not one.
+Worse still, objects have no way of expressing their emotional needs. A banana changes personality three times a week and not one person checks in on it. A chair has silently supported everyone in the house for eleven years and has never once been thanked.
 
 ### The Solution (that nobody asked for)
 
-We built a **fully functional dating platform for inanimate objects**.
+We built a fully functional dating platform for inanimate objects.
 
-Upload a photo, type what it is, and our backend generates a personality across seven traits. The object gets a dating profile — occupation, love language, biggest fear, green flags, red flags, and a secret it has never told anyone. It then enters the dating pool, where our matching engine evaluates it against every other object that has ever been uploaded.
+Upload a photo, type what it is, and the backend generates a personality across seven traits. The object gets a dating profile — occupation, love language, biggest fear, green flags, red flags, and a secret it has never told anyone. It then enters the dating pool and is matched against every other object ever uploaded.
 
-The matching is not random. Every object is mapped to one of **eight personality archetypes** derived from how humans actually interact with it — a spoon makes noise in every room it enters, therefore it is a loud extrovert; a chair has held everyone up for years, therefore it is emotionally exhausted and reliable. Compatibility comes from how those archetypes collide, which is why *Spoon ❤️ Chair* scores well and the explanation writes itself:
+The matching is not random. Every object maps to one of eight personality archetypes derived from how humans actually interact with it: a spoon makes noise in every room it enters, so it is a loud extrovert; a chair has held everyone up for years, so it is reliable and emotionally exhausted. Compatibility comes from how those archetypes collide, which is why Spoon ❤️ Chair scores well and the explanation writes itself:
 
 > *"One talks. One listens. Neither has considered swapping."*
 
-Then, because a result appearing instantly would be undignified, we reject four other candidates with reasons, stall dramatically, announce that **SOMETHING HAS GONE TERRIBLY RIGHT**, reveal the soulmate with confetti and a synthesized chime, and finish with a ten-year relationship forecast and a survival percentage that is almost always in single digits.
+Then, because an instant result would be undignified, we reject four other candidates with reasons, stall dramatically, announce that **SOMETHING HAS GONE TERRIBLY RIGHT**, reveal the soulmate with confetti and a synthesized chime, and finish with a ten-year relationship forecast and a survival percentage that is almost always in single digits.
 
 It solves absolutely nothing. That is the entire point.
 
@@ -50,12 +40,10 @@ It solves absolutely nothing. That is the entire point.
 
 For Software:
 
-- **Languages:** Python, JavaScript, HTML, CSS
-- **Frameworks:** FastAPI (backend), Uvicorn (ASGI server)
-- **Libraries:** `python-multipart` (file uploads), `sqlite3`, `json`, `uuid`, `random`, `shutil` (Python standard library)
-- **Frontend:** **Zero frameworks and zero JavaScript libraries** — no React, no jQuery, no animation library. Every animation is hand-written CSS, every sound is generated live with the **Web Audio API**, and every character face is inline SVG.
-- **Database:** SQLite, with a `UNIQUE` index enforcing one dating profile per object name
-- **Tools:** Git, GitHub, VS Code, Live Server
+- **Languages used:** Python, JavaScript, HTML, CSS
+- **Frameworks used:** FastAPI, Uvicorn
+- **Libraries used:** python-multipart, sqlite3, json, uuid, random, shutil (Python standard library). No JavaScript libraries at all — every animation is hand-written CSS, every sound is generated live with the Web Audio API.
+- **Tools used:** Git, GitHub, VS Code, Live Server, SQLite, Render, Netlify
 
 ### Implementation
 
@@ -64,15 +52,12 @@ For Software:
 # Installation
 
 ```bash
-# clone the repository
 git clone https://github.com/sahala0408/useless.git
 cd useless/backend
 
-# create and activate a virtual environment (Windows)
 python -m venv venv
 venv\Scripts\activate
 
-# install the three dependencies
 pip install -r requirements.txt
 ```
 
@@ -81,15 +66,12 @@ On macOS/Linux, activate with `source venv/bin/activate` instead.
 # Run
 
 ```bash
-# from the backend/ folder, with the virtual environment active
 uvicorn main:app --reload
 ```
 
-The API starts on `http://127.0.0.1:8000`. On first run it creates `objects.db` and automatically seeds the dating pool with seven starter objects, so it is never empty.
+The API starts on `http://127.0.0.1:8000` and seeds the dating pool with seven starter objects on first run.
 
-Then open the frontend — in VS Code, **right-click `frontend/index.html` → Open with Live Server**.
-
-> ⚠️ Open the frontend through Live Server, not by double-clicking the file. Camera input is unreliable on `file://` URLs.
+Then open the frontend: in VS Code, right-click `frontend/index.html` → **Open with Live Server**.
 
 ### Project Documentation
 
@@ -115,7 +97,7 @@ flowchart TD
     B -->|No| C["POST /upload<br/>FastAPI receives image + name"]
 
     C --> D["personality.py<br/>generates 7 traits,<br/>biased by object hints"]
-    D --> E["database.py<br/>saves to SQLite<br/>image stored under a UUID"]
+    D --> E["database.py<br/>saves to SQLite,<br/>image stored under a UUID"]
     E --> F["matching.py<br/>picks a candidate with a<br/>DIFFERENT name, scores it"]
     F --> G["explanations.py<br/>maps both objects to archetypes<br/>and writes the analysis"]
     G --> H["JSON response:<br/>personality + soulmate<br/>+ compatibility + analysis"]
@@ -139,80 +121,18 @@ flowchart TD
 
 [Add your demo video link here]
 
-*The video should show the full journey: uploading an object, watching the personality generate, browsing the dating pool and opening a profile, then running a match — the rejected candidates, the destiny reveal, the compatibility count-up, and the ridiculous future prediction.*
+*The video shows the full journey: uploading an object, watching the personality generate, browsing the dating pool and opening a profile, then running a match — the rejected candidates, the destiny reveal, the compatibility count-up, and the ridiculous future prediction.*
 
 # Additional Demos
 
 - **Live site:** https://object-soulmate-elyra.netlify.app
 - **API:** https://object-soulmate-api.onrender.com
-- **Repository:** https://github.com/sahala0408/useless
 
-> ⏳ The backend runs on a free tier and sleeps after 15 minutes of inactivity.
-> The first request may take up to a minute to wake it — after that it is fast.
-> The dating pool seeds itself, so it is never empty.
-
-## Features
-
-| | |
-|---|---|
-| 📷 **Object upload** | Camera or gallery, on desktop and mobile |
-| 🧠 **Personality generation** | Seven traits per object, nudged by per-object hints |
-| 💘 **Soulmate matching** | Never matches an object with its own kind |
-| 📊 **Compatibility score** | Calculated by the backend, animated on reveal |
-| 😂 **Reasoned explanations** | Built from real object behaviour, not random jokes |
-| 🚩💚 **Red & green flags** | Every object has both |
-| 💭 **Secrets** | Each object is hiding something |
-| 💔 **Rejected candidates** | Four other objects turned down, with reasons |
-| 🔮 **Future prediction** | A ten-year forecast and a survival percentage |
-| 💘 **The Dating Pool** | Browse every object, open its profile, see who it could date |
-| 🗑️ **Profile deletion** | With a confirmation the object would object to |
-| 🚫 **Duplicate prevention** | Enforced by a database `UNIQUE` index |
-| 🔊 **Sound effects** | Generated live with the Web Audio API — no audio files |
-| 📱 **Responsive** | Works on phones, with no horizontal overflow |
-
-## Project Structure
-
-```
-useless/
-│
-├── backend/
-│   ├── main.py                    # FastAPI app and routes
-│   ├── personality.py             # 7-trait personality generation
-│   ├── matching.py                # soulmate selection + compatibility
-│   ├── explanations.py            # relationship analyst (67 objects, 8 archetypes)
-│   ├── database.py                # SQLite storage, duplicate guard, seeding
-│   ├── migrate_unique_names.py    # one-off: enforce one profile per name
-│   ├── requirements.txt
-│   ├── seed/                      # starter objects for an empty pool
-│   └── uploads/                   # uploaded photos (not committed)
-│
-├── frontend/
-│   ├── index.html
-│   ├── style.css
-│   └── script.js
-│
-├── assets/                        # screenshots for this README
-├── index.html                     # redirect into frontend/
-├── .gitignore
-└── README.md
-```
-
-## API Reference
-
-| Method | Endpoint | Purpose |
-|---|---|---|
-| `GET` | `/` | Health check |
-| `POST` | `/upload` | Image + object name → personality, soulmate, analysis |
-| `GET` | `/objects` | Everyone currently in the dating pool |
-| `DELETE` | `/objects/{id}` | Remove an object from the pool |
+*The backend runs on a free tier and sleeps after 15 minutes of inactivity, so the first request may take up to a minute to wake it. The dating pool seeds itself, so it is never empty.*
 
 ## Team Contributions
 
 - Rahamath Sahala K P & Sreeminnika K N: Built the whole thing together — backend, frontend, and every bad decision in between.
-
-## Disclaimer
-
-Object Soulmate is not responsible for broken relationships between household objects. Compatibility scores are generated by a computer that has never been in a relationship. Any resemblance to functioning matchmaking is coincidental and was not intended.
 
 ---
 Made with ❤️ at TinkerHub Useless Projects
