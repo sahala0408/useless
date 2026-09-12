@@ -77,17 +77,6 @@ Then open the frontend: in VS Code, right-click `frontend/index.html` → **Open
 
 For Software:
 
-# Screenshots (Add at least 3)
-
-![Screenshot1](assets/screenshot-1-home.png)
-*The home screen. Floating objects drift around the title, each labelled with the emotional baggage it brings to the dating pool — "emotionally unavailable", "probably toxic", "looking for stability".*
-
-![Screenshot2](assets/screenshot-2-profile.png)
-*An object's dating profile after analysis. Seven personality traits with animated bars, an occupation, a love language, a biggest fear, and colour-coded green and red flags — presented with total sincerity.*
-
-![Screenshot3](assets/screenshot-3-reveal.png)
-*The soulmate reveal. Compatibility counts up to its final score, the two objects slide toward each other, and the relationship analyst explains exactly why these two unrelated things belong together.*
-
 # Diagrams
 
 ```mermaid
@@ -116,12 +105,6 @@ flowchart TD
 *The backend does all the real work — personality, matching, compatibility and the written explanation — and returns everything in a single response. The frontend never invents a match; the entire dramatic sequence is theatre performed over data it is already holding, which is why the reveal never stalls waiting on the network.*
 
 ### Project Demo
-
-# Video
-
-[Add your demo video link here]
-
-*The video shows the full journey: uploading an object, watching the personality generate, browsing the dating pool and opening a profile, then running a match — the rejected candidates, the destiny reveal, the compatibility count-up, and the ridiculous future prediction.*
 
 # Additional Demos
 
