@@ -80,22 +80,22 @@ For Software:
 # Screenshots (Add at least 3)
 
 ![Screenshot1](assets/screenshot-1-home.png)
-*The home screen. Floating objects drift around the title, each labelled with the emotional baggage it brings to the dating pool — "emotionally unavailable", "probably toxic", "looking for stability". The counter tracks how many objects are currently single.*
+*The home screen. Cartoon objects drift around the title, each labelled with the emotional baggage it brings to the dating pool — "emotionally unavailable", "probably toxic", "looking for stability". Twelve objects are currently single, and the usefulness score holds steady at 0.3%.*
 
 ![Screenshot2](assets/screenshot-2-upload.png)
-*Step one: introduce your object. You type what it is and add a photo from the camera or gallery. The photo drops into a glowing circular character frame rather than a plain rectangle.*
+*Step one: introduce your object. You type what it is and add a photo from the camera or the gallery. The photo lands inside a glowing circular character frame rather than a plain rectangle.*
 
 ![Screenshot3](assets/screenshot-3-personality.png)
-*The generated personality. Seven traits with animated bars, plus a full dating profile — occupation, love language and biggest fear. This phone was classified as Serious and Friendly, retired from usefulness, and afraid of direct sunlight. Its red flag: never texts back.*
+*The generated personality. Seven traits with animated bars and a full dating profile. This sock came out Reliable and Serious, occupation "Full-time clutter", love language "Not being dropped", biggest fear "The dishwasher" — and, inevitably, a red flag of Emotionally unavailable.*
 
 ![Screenshot4](assets/screenshot-4-reveal.png)
-*The soulmate reveal. Mobile Phone matched with Stapler at 79%, and the relationship analyst explains why using what the objects actually do: one demands attention every ninety seconds, the other commits permanently and with unnecessary force.*
+*The soulmate reveal. Sock matched with Banana at 88%, and the relationship analyst explains why using what the objects actually do: "The sock disappears without explanation and never gives a reason… The banana changes colour three times a week and bruises if you look at it."*
 
 ![Screenshot5](assets/screenshot-5-future.png)
-*Their ridiculous future. A ten-year forecast generated from both objects' personalities, ending with a relationship survival chance of 7% and the reassurance that "the algorithm has seen worse."*
+*Their ridiculous future. A ten-year forecast built from both objects' personalities — Sock causes three separate incidents, Banana falls apart and blames the weather, and after a decade they are "still together, still not speaking." Relationship survival chance: 8%.*
 
 ![Screenshot6](assets/screenshot-6-dating-pool.png)
-*The dating pool. Every object ever uploaded, each with an archetype title, a first-person tagline, what it is looking for and its red flag. Clicking any card opens its full profile and reveals who it could realistically date.*
+*The dating pool. Every object ever uploaded, each with an archetype title, a first-person tagline, what it is looking for and its red flag. Clicking any card opens the full profile and reveals who it could realistically date.*
 
 # Diagrams
 
