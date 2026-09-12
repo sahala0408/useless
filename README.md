@@ -16,9 +16,7 @@
 
 ### Project Description
 
-Object Soulmate is an AI-style dating application for **physical objects**. You photograph a spoon, type its name, and the system gives it a personality, drops it into a dating pool, rejects several unsuitable candidates on its behalf, and matches it with a completely unrelated object — then explains the relationship in far more detail than anyone requested.
-
-It also predicts how the relationship ends. It is never optimistic.
+An AI dating app for physical objects. Upload any object, and it gets a personality, a dating profile and a soulmate chosen from everything else ever uploaded. It explains the match using how the objects actually behave, then forecasts the breakup. Useless by design.
 
 ### The Problem (that doesn't exist)
 
