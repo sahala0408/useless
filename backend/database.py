@@ -1,5 +1,8 @@
 import sqlite3
 import json
+import os
+import shutil
+import uuid
 
 def init_db():
     conn = sqlite3.connect("objects.db")
@@ -26,6 +29,8 @@ def init_db():
               "to enforce one profile per object")
     conn.commit()
     conn.close()
+
+    seed_if_empty()
 
 def save_object(object_name, image_path, personality):
     conn = sqlite3.connect("objects.db")
@@ -99,3 +104,73 @@ def delete_object(object_id):
     conn.commit()
     conn.close()
     return {"id": row[0], "object_name": row[1], "image_path": row[2]}
+
+
+# Paths are resolved from this file, not the working directory, so the
+# backend behaves the same however it is started (locally or on a host).
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+SEED_DIR = os.path.join(BASE_DIR, "seed")
+UPLOAD_DIR = os.path.join(BASE_DIR, "uploads")
+
+
+def seed_if_empty():
+    """Populate the dating pool from backend/seed/ when it is empty.
+
+    Free hosting (Render's free tier, for one) gives you an ephemeral
+    filesystem: uploads/ and objects.db are wiped every time the service
+    restarts, redeploys or wakes from sleep. Without this, a judge who
+    opens the site after it has been idle finds an empty dating pool.
+    Seeding on an empty table means the pool refills itself instead.
+
+    Does nothing if the pool already has objects, so real uploads are
+    never touched and this is safe to run on every startup.
+    """
+    from personality import generate_personality   # local import: avoids a cycle
+
+    conn = sqlite3.connect("objects.db")
+    cursor = conn.cursor()
+    cursor.execute("SELECT COUNT(*) FROM objects")
+    if cursor.fetchone()[0] > 0:
+        conn.close()
+        return
+
+    if not os.path.isdir(SEED_DIR):
+        conn.close()
+        print("[seed] no seed/ folder - starting with an empty dating pool")
+        return
+
+    os.makedirs(UPLOAD_DIR, exist_ok=True)
+    added = 0
+
+    for filename in sorted(os.listdir(SEED_DIR)):
+        name, ext = os.path.splitext(filename)
+        if ext.lower() not in (".png", ".jpg", ".jpeg", ".webp"):
+            continue
+
+        # Copy into uploads/ under a fresh name, exactly like a real upload,
+        # so /uploads serves it and nothing special-cases seeded rows.
+        dest_name = f"{uuid.uuid4().hex}{ext.lower()}"
+        dest_path = os.path.join(UPLOAD_DIR, dest_name)
+        try:
+            shutil.copy2(os.path.join(SEED_DIR, filename), dest_path)
+        except OSError as err:
+            print(f"[seed] could not copy {filename}: {err}")
+            continue
+
+        # store the same relative path shape the upload endpoint uses
+        stored_path = os.path.join("uploads", dest_name)
+        personality = generate_personality(name)
+        try:
+            cursor.execute(
+                "INSERT INTO objects (object_name, image_path, personality) VALUES (?,?,?)",
+                (name.lower(), stored_path, json.dumps(personality)),
+            )
+            added += 1
+        except sqlite3.IntegrityError:
+            # a name that somehow already exists - skip it, never crash startup
+            pass
+
+    conn.commit()
+    conn.close()
+    if added:
+        print(f"[seed] dating pool was empty - added {added} starter object(s)")
