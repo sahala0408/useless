@@ -9,7 +9,23 @@
      GET  /uploads/<file>  -> the image
    ═══════════════════════════════════════════════════════════ */
 
-const API_URL = "http://127.0.0.1:8000";   // ← change to your Render URL when you deploy
+/* ─────────────────────────────────────────────
+   BACKEND URL — the only place this is configured.
+
+   Opened from localhost (VS Code Live Server) or straight
+   from a file? Use the backend running on this machine.
+   Anywhere else — Netlify, a phone, a judge's laptop —
+   use the deployed backend.
+
+   Nothing else in this file hard-codes a URL.
+   ───────────────────────────────────────────── */
+const LOCAL_API      = "http://127.0.0.1:8000";
+const PRODUCTION_API = "https://object-soulmate-api.onrender.com";
+
+const IS_LOCAL = ["localhost", "127.0.0.1", "0.0.0.0", ""].includes(location.hostname);
+const API_URL  = IS_LOCAL ? LOCAL_API : PRODUCTION_API;
+
+console.log(`[Object Soulmate] ${IS_LOCAL ? "local" : "production"} backend: ${API_URL}`);
 
 /* Raw compatibility from the backend only ever lands between ~57 and ~96,
    because it is "100 - average trait difference" over random traits.
