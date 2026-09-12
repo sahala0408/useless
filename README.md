@@ -200,8 +200,7 @@ useless/
 
 ## Team Contributions
 
-- Rahamath Sahala K P: [Specific contributions]
-- Sreeminnika K N: [Specific contributions]
+- Rahamath Sahala K P & Sreeminnika K N: Built the whole thing together — backend, frontend, and every bad decision in between.
 
 ## Disclaimer
 
